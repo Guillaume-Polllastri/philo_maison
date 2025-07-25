@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/07/25 14:56:47 by gpollast         ###   ########.fr       */
+/*   Created: 2025/07/25 14:51:42 by gpollast          #+#    #+#             */
+/*   Updated: 2025/07/25 15:41:59 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-int	ft_atoi(char *nptr);
-int	*parse_args(char **av);
+// int	setup_philo(int *tab)
+// {
 
-typedef struct s_info
-{
-	int	x;
-}	t_info;
-
-typedef struct s_philo
-{
-	int	x;
-}	t_philo;
-
-#endif
+// }
