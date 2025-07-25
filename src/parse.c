@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 13:57:23 by gpollast          #+#    #+#             */
-/*   Updated: 2025/07/25 14:30:38 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:43:43 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	*parse_args(char **av)
 	while (av[i + 1])
 	{
 		tab[i] = ft_positive_atoi(av[i + 1]);
+		if (tab[i] == 0)
+			return (free(tab), NULL);
 		i++;
 	}
 	return (tab);

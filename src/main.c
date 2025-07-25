@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:39:45 by gpollast          #+#    #+#             */
-/*   Updated: 2025/07/25 14:34:30 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:45:45 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	main(int ac, char **av)
 		tab = parse_args(av);
 		if (!tab)
 		{
-			write(2, "Error\nArgs are not numeric numbers\n", 35);
-			return (free(tab), 1);
+			write(2, "Error\nArgs must be a positive numbers\n", 38);
+			return (1);
 		}
 		printf("Number of philosophers : %d\n", tab[0]);
 		printf("Time to die : %d\n", tab[1]);
