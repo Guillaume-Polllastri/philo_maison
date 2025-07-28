@@ -6,24 +6,40 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/07/25 14:56:47 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:35:24 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-int	ft_atoi(char *nptr);
-int	*parse_args(char **av);
-
-typedef struct s_info
-{
-	int	x;
-}	t_info;
+# include <pthread.h>
 
 typedef struct s_philo
 {
-	int	x;
+	int				id;
+	int				status;
+	int				nb_meals;
+	pthread_t		thread;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 }	t_philo;
+
+typedef struct s_data
+{
+	int				nb_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nb_meals;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print;
+	pthread_mutex_t	death;
+	t_philo			*philos;
+}	t_data;
+
+int	ft_atoi(char *nptr);
+int	*parse_args(char **av);
+int	setup_data(t_data *data, int *tab);
 
 #endif

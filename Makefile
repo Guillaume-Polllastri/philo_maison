@@ -6,14 +6,15 @@
 #    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/04 10:53:47 by gpollast          #+#    #+#              #
-#    Updated: 2025/07/25 14:02:13 by gpollast         ###   ########.fr        #
+#    Updated: 2025/07/28 17:20:26 by gpollast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRC = 	src/main.c \
-		src/parse.c
+		src/parse.c \
+		src/init.c
 
 OBJ = $(SRC:.c=.o)
 

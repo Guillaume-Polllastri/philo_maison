@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:39:45 by gpollast          #+#    #+#             */
-/*   Updated: 2025/07/25 17:25:11 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:23:19 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include <pthread.h>
 #include "philo.h"
 
 int	main(int ac, char **av)
@@ -27,7 +26,7 @@ int	main(int ac, char **av)
 		tab = parse_args(av);
 		if (!tab)
 		{
-			write(2, "Error\nArgs must be a positive numbers\n", 38);
+			write(2, "Error\nArgs must be > 0\n", 23);
 			return (1);
 		}
 		printf("Number of philosophers : %d\n", tab[0]);
@@ -39,6 +38,6 @@ int	main(int ac, char **av)
 		free(tab);
 	}
 	else
-		write(2, "Error\nThe program needs 5 arguments\n", 36);
+		write(2, "Error\nThe program needs 4 or 5 arguments\n", 41);
 	return (0);
 }
