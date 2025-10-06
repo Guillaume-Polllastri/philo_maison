@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/07/28 17:35:24 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/06 11:40:50 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef struct s_data
 	t_philo			*philos;
 }	t_data;
 
-int	ft_atoi(char *nptr);
-int	*parse_args(char **av);
-int	setup_data(t_data *data, int *tab);
+int		ft_atoi(char *nptr);
+int		*parse_args(char **av);
+int		setup_data(t_data *data, int *tab);
+void    destroy_fork_mutex(pthread_mutex_t	*forks, int nb_initialized);
 
 #endif
