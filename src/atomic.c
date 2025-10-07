@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_init.c                                        :+:      :+:    :+:   */
+/*   atomic.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/25 14:51:42 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/07 23:06:18 by gpollast         ###   ########.fr       */
+/*   Created: 2025/10/07 22:53:15 by gpollast          #+#    #+#             */
+/*   Updated: 2025/10/07 23:09:20 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdlib.h>
-#include <string.h>
 
-void	init_data(t_data *data, int *tab)
+int	is_game_running(t_data *data)
 {
-	memset(data, 0);
-	data->nb_philos = tab[0];
-	data->time_to_die = tab[1];
-	data->time_to_eat = tab[2];
-	data->time_to_sleep = tab[3];
-	if (tab[4])
-		data->nb_meals = tab[4];
-	else
-		data->nb_meals = -1;
-	free(tab);
-}
+	int	death_flag;
 
+	pthread_mutex_lock(&data->death_flag_lock);
+	death_flag = data->death_flag;
+	pthread_mutex_unlock(&data->death_flag_lock);
+	return (death_flag == 0);
+}

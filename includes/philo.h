@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/07 20:23:55 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/07 23:09:41 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				nb_meals;
 	long long		start_time;
+	int				death_flag;
+	pthread_mutex_t	death_flag_lock;
 }	t_data;
 
 typedef struct s_philo
@@ -49,5 +51,6 @@ void	print_philos(t_philo *philos, t_data *data);
 int		deploy_philos(t_data *data);
 void    destroy_fork_mutex(t_fork *forks, int nb_initialized);
 t_fork	*create_fork(void);
+int		is_game_running(t_data *data);
 
 #endif
