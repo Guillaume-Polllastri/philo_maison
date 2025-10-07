@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:39:45 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/05 16:37:06 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/07 15:16:16 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 int	main(int ac, char **av)
 {
-	int	*tab;
+	int		*tab;
+	t_data	data;
 
 	if (ac < 5 || ac > 6)
 	{
@@ -28,16 +29,8 @@ int	main(int ac, char **av)
 	}
 	tab = parse_args(av);
 	if (!tab)
-	{
-		write(2, "Error\nArgs must be > 0\n", 23);
 		return (1);
-	}
-	printf("Number of philosophers : %d\n", tab[0]);
-	printf("Time to die : %d\n", tab[1]);
-	printf("Time to eat : %d\n", tab[2]);
-	printf("Time to sleep : %d\n", tab[3]);
-	if (ac == 6)
-		printf("Number of times each philosophers must eat : %d\n", tab[4]);
-	free(tab);
+	init_data(&data, tab);
+	deploy_philos(&data);
 	return (0);
 }

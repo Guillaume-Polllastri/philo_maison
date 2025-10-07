@@ -6,7 +6,7 @@
 #    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/04 10:53:47 by gpollast          #+#    #+#              #
-#    Updated: 2025/10/06 15:04:55 by gpollast         ###   ########.fr        #
+#    Updated: 2025/10/07 20:17:08 by gpollast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME = philo
 
 SRC = 	src/main.c \
 		src/parse.c \
-		src/init.c \
+		src/data_init.c \
 		src/utils.c \
-		src/exec.
+		src/philos.c \
+		src/fork.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/06 14:48:54 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/07 20:23:55 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,11 @@
 
 # include <pthread.h>
 
-typedef struct s_philo
+typedef struct s_fork
 {
-	int				id;
-	int				status;
-	int				nb_meals;
-	pthread_t		thread;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-}	t_philo;
+	int				owner;
+	pthread_mutex_t	mutex;
+}	t_fork;
 
 typedef struct s_data
 {
@@ -32,17 +28,26 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_meals;
-	int				death_flag;
 	long long		start_time;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	print;
-	pthread_mutex_t	death;
-	t_philo			*philos;
 }	t_data;
+
+typedef struct s_philo
+{
+	int				id;
+	int				nb_meals;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
+	pthread_t		thread;
+	t_data			*data;
+}	t_philo;
 
 int		ft_atoi(char *nptr);
 int		*parse_args(char **av);
-int		setup_data(t_data *data, int *tab);
-void    destroy_fork_mutex(pthread_mutex_t	*forks, int nb_initialized);
+void	init_data(t_data *data, int *tab);
+t_philo	*create_philos(t_data *data);
+void	print_philos(t_philo *philos, t_data *data);
+int		deploy_philos(t_data *data);
+void    destroy_fork_mutex(t_fork *forks, int nb_initialized);
+t_fork	*create_fork(void);
 
 #endif

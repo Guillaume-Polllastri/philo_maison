@@ -1,14 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/06 15:04:41 by gpollast         ###   ########.fr       */
+/*   Created: 2025/07/25 14:51:42 by gpollast          #+#    #+#             */
+/*   Updated: 2025/10/07 15:27:54 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h>
+
+void	init_data(t_data *data, int *tab)
+{
+	data->nb_philos = tab[0];
+	data->time_to_die = tab[1];
+	data->time_to_eat = tab[2];
+	data->time_to_sleep = tab[3];
+	if (tab[4])
+		data->nb_meals = tab[4];
+	else
+		data->nb_meals = -1;
+	free(tab);
+}
 
