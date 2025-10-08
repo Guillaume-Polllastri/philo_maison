@@ -6,20 +6,22 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/07 22:51:23 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/08 17:14:00 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <sys/time.h>
+#include <unistd.h>
 
 static int	init_philos(t_philo *philos, t_data *data, int *i)
 {
 	philos[*i].id = *i + 1; 
 	philos[*i].nb_meals = 0;
 	philos[*i].data = data;
-	if (i == 0)
+	if (*i == 0)
 	{
 		philos[*i].left_fork = create_fork();
 		philos[*i].right_fork = create_fork();
@@ -59,10 +61,19 @@ t_philo	*create_philos(t_data *data)
 
 static void	*routine_philos(void *arg)
 {
-	t_philo	philo;
+	t_philo			*philo;
+	struct timeval	tv;
 
-	philo = *(t_philo *)(arg);
-	printf("Hello my id is: %d\n", philo.id);
+	philo = (t_philo *)(arg);
+	gettimeofday(&tv, NULL);
+	pthread_mutex_lock(&philo->left_fork->mutex);
+	printf("%ld %d has taken a left_fork\n", ((tv.tv_sec / 1000) + (tv.tv_usec * 1000)), philo->id);
+	pthread_mutex_unlock(&philo->left_fork->mutex);
+	pthread_mutex_lock(&philo->right_fork->mutex);
+	printf("%ld %d has taken a right_fork\n", ((tv.tv_sec / 1000) + (tv.tv_usec * 1000)), philo->id);
+	if (philo->left_fork->owner == philo->right_fork->owner)
+		printf("%ld %d is eating\n", ((tv.tv_sec / 1000) + (tv.tv_usec * 1000)), philo->id);
+	pthread_mutex_unlock(&philo->right_fork->mutex);
 	return (NULL);
 }
 

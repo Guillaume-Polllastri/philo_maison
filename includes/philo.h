@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/07 23:09:41 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/08 16:48:26 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PHILO_H
 
 # include <pthread.h>
+
+# define NO_OWNER 0
 
 typedef struct s_fork
 {
@@ -31,6 +33,7 @@ typedef struct s_data
 	long long		start_time;
 	int				death_flag;
 	pthread_mutex_t	death_flag_lock;
+	pthread_mutex_t	print;
 }	t_data;
 
 typedef struct s_philo
