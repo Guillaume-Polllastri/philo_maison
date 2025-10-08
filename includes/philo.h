@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/08 16:48:26 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:37:50 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ int		deploy_philos(t_data *data);
 void    destroy_fork_mutex(t_fork *forks, int nb_initialized);
 t_fork	*create_fork(void);
 int		is_game_running(t_data *data);
+int		try_take_fork(t_philo *philo);
+int		release_fork(t_philo *philo);
 
 #endif

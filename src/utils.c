@@ -6,13 +6,14 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:34:00 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/07 20:29:09 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:46:22 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 void    destroy_fork_mutex(t_fork *forks, int nb_initialized)
 {
@@ -38,4 +39,14 @@ void	print_philos(t_philo *philos, t_data *data)
 		printf("nb_meals (%d)\n", philos[i].nb_meals);
 		i++;
 	}
+}
+
+long long	get_timestamp()
+{
+	long long		res;
+	struct timeval	tv;
+	
+	gettimeofday(&tv, NULL);
+	res = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	return (res);
 }
