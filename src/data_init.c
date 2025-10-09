@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 14:51:42 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/08 11:51:17 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:50:28 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ void	init_data(t_data *data, int *tab)
 		data->nb_meals = -1;
 	free(tab);
 }
-

@@ -6,18 +6,18 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/08 22:48:31 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:12:52 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 static int	init_philos(t_philo *philos, t_data *data, int *i)
 {
-	philos[*i].id = *i + 1; 
+	philos[*i].id = *i + 1;
 	philos[*i].nb_meals = 0;
 	philos[*i].data = data;
 	if (*i == 0)
@@ -43,8 +43,8 @@ static int	init_philos(t_philo *philos, t_data *data, int *i)
 t_philo	*create_philos(t_data *data)
 {
 	t_philo	*philos;
-	int	i;
-	
+	int		i;
+
 	philos = malloc(sizeof(*philos) * data->nb_philos);
 	if (!philos)
 		return (NULL);
@@ -60,14 +60,39 @@ t_philo	*create_philos(t_data *data)
 
 static void	*routine_philos(void *arg)
 {
-	t_philo	*philo;
-	int		status;
+	t_philo		*philo;
+	int			status;
+	long long	start_time;
 
 	philo = (t_philo *)(arg);
 	status = 1;
+	start_time = get_timestamp();
 	while (status && is_game_running(philo->data))
 	{
-		
+		if (try_take_fork(philo))
+		{
+			printf("%lld %d is eating\n", get_timestamp(), philo->id);
+			philo->nb_meals++;
+			usleep(philo->data->time_to_eat * 1000);
+		}
+		else
+			printf("%lld %d is thinking\n", get_timestamp(), philo->id);
+		if (release_fork(philo))
+		{
+			printf("%lld %d is sleeping\n", get_timestamp(), philo->id);
+			usleep(philo->data->time_to_sleep * 1000);
+		}
+		if (get_timestamp() - start_time >= philo->data->time_to_die)
+		{
+			philo->data->death_flag = 1;
+			printf("%lld %d died\n", get_timestamp(), philo->id);
+		}
+		if (philo->nb_meals == philo->data->nb_meals
+			&& !philo->data->death_flag)
+		{
+			printf("%d c'est ciao\n", philo->id);
+			status = 0;
+		}
 	}
 	return (NULL);
 }

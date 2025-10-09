@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:34:00 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/08 22:46:22 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:48:48 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-void    destroy_fork_mutex(t_fork *forks, int nb_initialized)
+void	destroy_fork_mutex(t_fork *forks, int nb_initialized)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < nb_initialized)
-    {
-        pthread_mutex_destroy(&forks[i].mutex);
-        i++;
-    }
-    free(forks);
+	i = 0;
+	while (i < nb_initialized)
+	{
+		pthread_mutex_destroy(&forks[i].mutex);
+		i++;
+	}
+	free(forks);
 }
 
 void	print_philos(t_philo *philos, t_data *data)
@@ -41,11 +41,11 @@ void	print_philos(t_philo *philos, t_data *data)
 	}
 }
 
-long long	get_timestamp()
+long long	get_timestamp(void)
 {
 	long long		res;
 	struct timeval	tv;
-	
+
 	gettimeofday(&tv, NULL);
 	res = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 	return (res);

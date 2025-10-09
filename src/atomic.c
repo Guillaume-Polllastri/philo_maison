@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 22:53:15 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/08 22:38:02 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:50:10 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	is_game_running(t_data *data)
 int	try_take_fork(t_philo *philo)
 {
 	int	status;
-	
+
 	status = 0;
 	pthread_mutex_lock(&philo->left_fork->mutex);
 	pthread_mutex_lock(&philo->right_fork->mutex);
-	if (philo->left_fork->owner == NO_OWNER &&
-		philo->right_fork->owner == NO_OWNER)
+	if (philo->left_fork->owner == NO_OWNER
+		&& philo->right_fork->owner == NO_OWNER)
 	{
 		philo->left_fork->owner = philo->id;
 		philo->right_fork->owner = philo->id;
@@ -44,12 +44,12 @@ int	try_take_fork(t_philo *philo)
 int	release_fork(t_philo *philo)
 {
 	int	status;
-	
+
 	status = 0;
 	pthread_mutex_lock(&philo->left_fork->mutex);
 	pthread_mutex_lock(&philo->right_fork->mutex);
-	if (philo->left_fork->owner == philo->id &&
-		philo->right_fork->owner == philo->id)
+	if (philo->left_fork->owner == philo->id
+		&& philo->right_fork->owner == philo->id)
 	{
 		philo->left_fork->owner = NO_OWNER;
 		philo->right_fork->owner = NO_OWNER;
