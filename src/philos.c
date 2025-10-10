@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/09 15:12:52 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:46:04 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void	*routine_philos(void *arg)
 	philo = (t_philo *)(arg);
 	status = 1;
 	start_time = get_timestamp();
+	printf("%lld %d is thinking\n", get_timestamp(), philo->id);
 	while (status && is_game_running(philo->data))
 	{
 		if (try_take_fork(philo))
@@ -75,12 +76,11 @@ static void	*routine_philos(void *arg)
 			philo->nb_meals++;
 			usleep(philo->data->time_to_eat * 1000);
 		}
-		else
-			printf("%lld %d is thinking\n", get_timestamp(), philo->id);
 		if (release_fork(philo))
 		{
 			printf("%lld %d is sleeping\n", get_timestamp(), philo->id);
 			usleep(philo->data->time_to_sleep * 1000);
+			printf("%lld %d is thinking\n", get_timestamp(), philo->id);
 		}
 		if (get_timestamp() - start_time >= philo->data->time_to_die)
 		{
@@ -89,10 +89,7 @@ static void	*routine_philos(void *arg)
 		}
 		if (philo->nb_meals == philo->data->nb_meals
 			&& !philo->data->death_flag)
-		{
-			printf("%d c'est ciao\n", philo->id);
 			status = 0;
-		}
 	}
 	return (NULL);
 }
@@ -125,5 +122,7 @@ int	deploy_philos(t_data *data)
 		i++;
 	}
 	wait_philos(data, philos);
+	if (!data->death_flag)
+		printf("🎉 Tous les philosophes sont partis de table\n");
 	return (1);
 }

@@ -6,11 +6,12 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 22:53:15 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/09 14:50:10 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/10 13:40:49 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdio.h>
 
 int	is_game_running(t_data *data)
 {
@@ -33,7 +34,9 @@ int	try_take_fork(t_philo *philo)
 		&& philo->right_fork->owner == NO_OWNER)
 	{
 		philo->left_fork->owner = philo->id;
+		printf("%lld %d has taken a fork\n", get_timestamp(), philo->id);
 		philo->right_fork->owner = philo->id;
+		printf("%lld %d has taken a fork\n", get_timestamp(), philo->id);
 		status = 1;
 	}
 	pthread_mutex_unlock(&philo->right_fork->mutex);
