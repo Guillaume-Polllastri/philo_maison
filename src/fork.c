@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 20:16:08 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/07 20:30:01 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:33:39 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,20 @@ t_fork	*create_fork(void)
 	fork->owner = 0;
 	pthread_mutex_init(&fork->mutex, NULL);
 	return (fork);
+}
+
+void	take_first_fork(t_philo *philo)
+{
+	if ((philo->id % 2))
+		pthread_mutex_lock(&philo->left_fork->mutex);
+	else
+		pthread_mutex_lock(&philo->right_fork->mutex);
+}
+
+void	take_second_fork(t_philo *philo)
+{
+	if ((philo->id % 2))
+		pthread_mutex_lock(&philo->right_fork->mutex);
+	else
+		pthread_mutex_lock(&philo->left_fork->mutex);
 }

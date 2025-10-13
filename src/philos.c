@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/10 14:46:04 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:11:09 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 static int	init_philos(t_philo *philos, t_data *data, int *i)
 {
 	philos[*i].id = *i + 1;
 	philos[*i].nb_meals = 0;
 	philos[*i].data = data;
-	if (*i == 0)
-	{
-		philos[*i].left_fork = create_fork();
-		philos[*i].right_fork = create_fork();
-	}
-	else if (*i < (data->nb_philos - 1))
-	{
-		philos[*i].left_fork = create_fork();
-		philos[*i].right_fork = philos[*i - 1].left_fork;
-	}
-	else
-	{
-		philos[*i].left_fork = philos[0].right_fork;
-		philos[*i].right_fork = philos[*i - 1].left_fork;
-	}
-	if (!philos[*i].left_fork || !philos[*i].right_fork)
+	philos[*i].right_fork = create_fork();
+	if (*i > 0)
+		philos[*i].left_fork = philos[*i - 1].right_fork;
+	if (*i > 0 && *i == philos->data->nb_philos - 1)
+		philos[0].left_fork = philos[*i].right_fork;
+	if (!philos[*i].right_fork)
 		return (0);
 	return (1);
 }
@@ -48,6 +39,7 @@ t_philo	*create_philos(t_data *data)
 	philos = malloc(sizeof(*philos) * data->nb_philos);
 	if (!philos)
 		return (NULL);
+	memset(philos, 0, sizeof(*philos));
 	i = 0;
 	while (i < data->nb_philos)
 	{
@@ -61,36 +53,26 @@ t_philo	*create_philos(t_data *data)
 static void	*routine_philos(void *arg)
 {
 	t_philo		*philo;
-	int			status;
-	long long	start_time;
 
 	philo = (t_philo *)(arg);
-	status = 1;
-	start_time = get_timestamp();
-	printf("%lld %d is thinking\n", get_timestamp(), philo->id);
-	while (status && is_game_running(philo->data))
+	while (is_philo_alive(philo) && is_game_running(philo->data))
 	{
-		if (try_take_fork(philo))
-		{
-			printf("%lld %d is eating\n", get_timestamp(), philo->id);
-			philo->nb_meals++;
-			usleep(philo->data->time_to_eat * 1000);
-		}
-		if (release_fork(philo))
-		{
-			printf("%lld %d is sleeping\n", get_timestamp(), philo->id);
-			usleep(philo->data->time_to_sleep * 1000);
-			printf("%lld %d is thinking\n", get_timestamp(), philo->id);
-		}
-		if (get_timestamp() - start_time >= philo->data->time_to_die)
-		{
-			philo->data->death_flag = 1;
-			printf("%lld %d died\n", get_timestamp(), philo->id);
-		}
-		if (philo->nb_meals == philo->data->nb_meals
-			&& !philo->data->death_flag)
-			status = 0;
+		print_philo_status(philo, "is thinking");
+		take_first_fork(philo);
+		print_philo_status(philo, "has taken a fork");
+		take_second_fork(philo);
+		print_philo_status(philo, "has taken a fork");
+		set_last_meal_time(philo, get_timestamp());
+		print_philo_status(philo, "is eating");
+		usleep(philo->data->time_to_eat * 1000);
+		release_fork(philo);
+		philo->nb_meals++;
+		if (philo->data->nb_meals != -1 && philo->nb_meals >= philo->data->nb_meals)
+			break;
+		print_philo_status(philo, "is sleeping");
+		usleep(philo->data->time_to_sleep * 1000);
 	}
+	set_death_status(philo);
 	return (NULL);
 }
 
@@ -109,20 +91,21 @@ static int	wait_philos(t_data *data, t_philo *philos)
 
 int	deploy_philos(t_data *data)
 {
-	t_philo	*philos;
-	int		i;
-
+	t_philo		*philos;
+	pthread_t	death_handler;
+	int			i;
 	philos = create_philos(data);
 	if (!philos)
 		return (0);
 	i = 0;
 	while (i < data->nb_philos)
 	{
+		philos[i].last_meal_time = get_timestamp();
 		pthread_create(&philos[i].thread, NULL, routine_philos, &philos[i]);
 		i++;
 	}
+	pthread_create(&death_handler, NULL, routine_death_handler, philos);
 	wait_philos(data, philos);
-	if (!data->death_flag)
-		printf("🎉 Tous les philosophes sont partis de table\n");
+	pthread_join(death_handler, NULL);
 	return (1);
 }

@@ -1,58 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atomic.c                                           :+:      :+:    :+:   */
+/*   atomic_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/07 22:53:15 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/13 18:07:59 by gpollast         ###   ########.fr       */
+/*   Created: 2025/10/13 16:20:14 by gpollast          #+#    #+#             */
+/*   Updated: 2025/10/13 18:07:58 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
-#include <sys/time.h>
 
-int	is_game_running(t_data *data)
+void	print_philo_status(t_philo *philo, char *s)
 {
-	int	stop_flag;
+	pthread_mutex_lock(&philo->lock);
+	if (!philo->death)
+		printf("%lld %d %s\n", get_timestamp(), philo->id, s);
+	pthread_mutex_unlock(&philo->lock);
+}
 
+void	stop_game(t_data *data)
+{
 	pthread_mutex_lock(&data->stop_flag_lock);
-	stop_flag = data->stop_flag;
+	data->stop_flag = 1;
 	pthread_mutex_unlock(&data->stop_flag_lock);
-	return (stop_flag == 0);
 }
 
-void	release_fork(t_philo *philo)
-{
-	pthread_mutex_unlock(&philo->right_fork->mutex);
-	pthread_mutex_unlock(&philo->left_fork->mutex);
-}
-
-void	set_death_status(t_philo *philo)
+void	set_last_meal_time(t_philo *philo, long long time)
 {
 	pthread_mutex_lock(&philo->lock);
-	philo->death = 1;
+	philo->last_meal_time = time;
 	pthread_mutex_unlock(&philo->lock);
 }
 
-int	get_death_status(t_philo *philo)
+long long	get_last_meal_time(t_philo *philo)
 {
-	int	status;
-
+	long long	last_meal_time;
+	
 	pthread_mutex_lock(&philo->lock);
-	status = philo->death;
+	last_meal_time = philo->last_meal_time;
 	pthread_mutex_unlock(&philo->lock);
-	return (status);
-}
-
-int	is_philo_alive(t_philo *philo)
-{
-	int	status;
-
-	pthread_mutex_lock(&philo->lock);
-	status = !philo->death;
-	pthread_mutex_unlock(&philo->lock);
-	return (status);
+	return (last_meal_time);
 }

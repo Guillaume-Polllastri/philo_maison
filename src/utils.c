@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:34:00 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/09 14:48:48 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:57:02 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,11 @@ long long	get_timestamp(void)
 	gettimeofday(&tv, NULL);
 	res = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 	return (res);
+}
+
+long long	min_value(long long a, long long b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }
