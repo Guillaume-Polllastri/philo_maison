@@ -33,6 +33,18 @@ all: $(NAME)
 val:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --track-fds=yes ./$(NAME) $(ARGS) || true
 
+# Helgrind pour détecter les deadlocks
+helgrind:
+	valgrind --tool=helgrind --track-lockorders=yes --history-level=full --conflict-cache-size=1000000 ./$(NAME) $(ARGS)
+
+# Helgrind avec plus de détails sur les deadlocks
+helgrind-verbose:
+	valgrind --tool=helgrind --track-lockorders=yes --history-level=full --conflict-cache-size=1000000 --show-below-main=yes -v ./$(NAME) $(ARGS)
+
+# DRD alternative pour comparaison
+drd:
+	valgrind --tool=drd --check-stack-var=yes --exclusive-threshold=500 ./$(NAME) $(ARGS)
+
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
 
@@ -50,4 +62,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all val clean fclean re
+.PHONY: all val helgrind helgrind-verbose drd clean fclean re
