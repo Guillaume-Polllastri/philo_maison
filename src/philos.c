@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/13 19:11:09 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:24:11 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	init_philos(t_philo *philos, t_data *data, int *i)
 		philos[0].left_fork = philos[*i].right_fork;
 	if (!philos[*i].right_fork)
 		return (0);
+	pthread_mutex_init(&philos[*i].lock, NULL);
 	return (1);
 }
 
@@ -39,7 +40,7 @@ t_philo	*create_philos(t_data *data)
 	philos = malloc(sizeof(*philos) * data->nb_philos);
 	if (!philos)
 		return (NULL);
-	memset(philos, 0, sizeof(*philos));
+	memset(philos, 0, sizeof(*philos) * data->nb_philos);
 	i = 0;
 	while (i < data->nb_philos)
 	{

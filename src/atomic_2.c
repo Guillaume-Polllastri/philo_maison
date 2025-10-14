@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:20:14 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/13 18:07:58 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:22:22 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 void	print_philo_status(t_philo *philo, char *s)
 {
-	pthread_mutex_lock(&philo->lock);
-	if (!philo->death)
+	pthread_mutex_lock(&philo->data->print);
+	if (!get_death_status(philo))
 		printf("%lld %d %s\n", get_timestamp(), philo->id, s);
-	pthread_mutex_unlock(&philo->lock);
+	pthread_mutex_unlock(&philo->data->print);
 }
 
 void	stop_game(t_data *data)
