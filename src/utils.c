@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:34:00 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/13 14:57:02 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:43:30 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <unistd.h>
 
 void	destroy_fork_mutex(t_fork *forks, int nb_initialized)
 {
@@ -56,4 +57,11 @@ long long	min_value(long long a, long long b)
 	if (a < b)
 		return (a);
 	return (b);
+}
+
+int	safe_usleep(long long usec)
+{
+	if (usec <= 0)
+		return (0);
+	return (usleep(usec));
 }

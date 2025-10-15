@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:17:45 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/14 14:34:04 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:44:20 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	*routine_death_handler(void *arg)
 				min = min_value(philos->data->time_to_die - time, min);
 			i++;
 		}
-		usleep(min * 1000);
+		// printf("all dead %d\n", all_dead);
+		safe_usleep(min * 1000);
 	}
 	return (NULL);
 }

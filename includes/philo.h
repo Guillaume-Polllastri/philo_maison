@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/13 18:07:58 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:40:33 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <pthread.h>
+# include <stdbool.h>
 
 # define NO_OWNER 0
 
@@ -70,5 +71,8 @@ void				take_second_fork(t_philo *philo);
 void				set_last_meal_time(t_philo *philo, long long time);
 long long			get_last_meal_time(t_philo *philo);
 int					get_death_status(t_philo *philo);
+int					get_order(int id, int nb_philos);
+int					safe_usleep(long long usec);
+long long			get_time_to_think(t_philo *philo, bool is_starting);
 
 #endif
