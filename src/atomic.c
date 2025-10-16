@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 22:53:15 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/15 19:37:07 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/16 12:55:43 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	is_game_running(t_data *data)
 
 void	release_fork(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->right_fork->mutex);
-	pthread_mutex_unlock(&philo->left_fork->mutex);
+	if (philo->right_fork)
+		pthread_mutex_unlock(&philo->right_fork->mutex);
+	if (philo->left_fork)
+		pthread_mutex_unlock(&philo->left_fork->mutex);
 }
 
 void	set_death_status(t_philo *philo)

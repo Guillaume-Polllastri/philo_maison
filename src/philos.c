@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/16 11:53:50 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:24:04 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,7 @@ int	deploy_philos(t_data *data)
 	pthread_create(&death_handler, NULL, routine_death_handler, philos);
 	wait_philos(data, philos);
 	pthread_join(death_handler, NULL);
+	free_fork(philos);
+	free(philos);
 	return (1);
 }

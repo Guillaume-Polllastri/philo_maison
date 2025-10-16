@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 20:16:08 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/15 16:15:42 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:23:48 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ t_fork	*create_fork(void)
 void	take_first_fork(t_philo *philo)
 {
 	if ((philo->id % 2))
-		pthread_mutex_lock(&philo->left_fork->mutex);
+	{
+		if (philo->left_fork)
+			pthread_mutex_lock(&philo->left_fork->mutex);		
+	}
 	else
+	{
+		if (philo->right_fork)
 		pthread_mutex_lock(&philo->right_fork->mutex);
+	}
 }
 
 void	take_second_fork(t_philo *philo)
@@ -39,4 +45,16 @@ void	take_second_fork(t_philo *philo)
 		pthread_mutex_lock(&philo->right_fork->mutex);
 	else
 		pthread_mutex_lock(&philo->left_fork->mutex);
+}
+
+void	free_fork(t_philo *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < philos->data->nb_philos)
+	{
+		free(philos[i].right_fork);
+		i++;
+	}
 }

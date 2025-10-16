@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/15 15:36:17 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:19:45 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int					get_death_status(t_philo *philo);
 int					get_order(int id, int nb_philos);
 int					safe_usleep(long long usec);
 long long			get_time_to_think(t_philo *philo, bool is_starting);
+void				free_fork(t_philo *philos);
 
 #endif
