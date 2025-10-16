@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/15 18:50:14 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:53:50 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,9 @@ static void	*routine_philos(void *arg)
 		take_second_fork(philo);
 		print_philo_status(philo, "has taken a fork");
 		set_last_meal_time(philo, get_timestamp());
-		long long	before = get_timestamp();
 		print_philo_status(philo, "is eating");
 		usleep(philo->data->time_to_eat * 1000);
-		long long	before2 = get_timestamp();
 		release_fork(philo);
-		printf("temps: %lld\n", get_timestamp() - before);
-		printf("temps2: %lld\n", get_timestamp() - before2);
 		philo->nb_meals++;
 		if (philo->data->nb_meals != -1 && philo->nb_meals >= philo->data->nb_meals)
 			break ;
@@ -94,7 +90,6 @@ static int	wait_philos(t_data *data, t_philo *philos)
 	while (i < data->nb_philos)
 	{
 		pthread_join(philos[i].thread, NULL);
-		// printf("pthread_id : %ld\n", philos[i].thread);
 		i++;
 	}
 	return (1);
@@ -119,12 +114,5 @@ int	deploy_philos(t_data *data)
 	pthread_create(&death_handler, NULL, routine_death_handler, philos);
 	wait_philos(data, philos);
 	pthread_join(death_handler, NULL);
-	// i = 0;
-	// while (i < data->nb_philos)
-	// {
-	// 	printf("%d order : %d\n", philos[i].id, get_order(philos[i].id, data->nb_philos));
-	// 	i++;
-	// }
-	// printf("pthread_id reaper\n");
 	return (1);
 }
