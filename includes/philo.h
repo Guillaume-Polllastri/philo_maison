@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/16 13:19:45 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:28:50 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_philo
 
 int					ft_positive_atoi(char *nptr);
 int					*parse_args(char **av);
-void				init_data(t_data *data, int *tab);
+void				init_data(t_data *data, int *tab, int tab_len);
 t_philo				*create_philos(t_data *data);
 void				print_philos(t_philo *philos, t_data *data);
 int					deploy_philos(t_data *data);
