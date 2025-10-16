@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/15 12:40:33 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:36:17 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ typedef struct s_philo
 	int				id;
 	int				nb_meals;
 	long long		last_meal_time;
+	pthread_mutex_t	last_meal_time_lock;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	pthread_t		thread;
 	int				death;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	death_lock;
 	t_data			*data;
 }					t_philo;
 

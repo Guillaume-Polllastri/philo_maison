@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:20:14 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/15 11:38:32 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/15 19:37:21 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,17 @@ void	stop_game(t_data *data)
 
 void	set_last_meal_time(t_philo *philo, long long time)
 {
-	// printf("set_last_meal_time : %ld\n", pthread_self());
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->last_meal_time_lock);
 	philo->last_meal_time = time;
-	pthread_mutex_unlock(&philo->lock);
-	// printf("set_last_meal_time unlock: %ld\n", pthread_self());
+	pthread_mutex_unlock(&philo->last_meal_time_lock);
 }
 
 long long	get_last_meal_time(t_philo *philo)
 {
 	long long	last_meal_time;
 
-	// printf("get_last_meal_time : %ld\n", pthread_self());
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->last_meal_time_lock);
 	last_meal_time = philo->last_meal_time;
-	pthread_mutex_unlock(&philo->lock);
-	// printf("get_last_meal_time unlock: %ld\n", pthread_self());
+	pthread_mutex_unlock(&philo->last_meal_time_lock);
 	return (last_meal_time);
 }
