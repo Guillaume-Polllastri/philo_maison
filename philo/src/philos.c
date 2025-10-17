@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/16 16:18:36 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:14:48 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	deploy_philos(t_data *data)
 	while (i < data->nb_philos)
 	{
 		philos[i].last_meal_time = get_timestamp();
+		philos[i].start_time = philos[i].last_meal_time;
 		pthread_create(&philos[i].thread, NULL, routine_philos, &philos[i]);
 		i++;
 	}

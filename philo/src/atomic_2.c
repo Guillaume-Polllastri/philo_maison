@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:20:14 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/16 13:45:51 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:32:45 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	print_philo_status(t_philo *philo, char *s)
 	is_dead = get_death_status(philo);
 	pthread_mutex_lock(&philo->data->print);
 	if (!is_dead)
-		printf("%lld %d %s\n", get_timestamp(), philo->id, s);
+		printf("%lld %d %s\n", get_timestamp() - philo->start_time, philo->id,
+			s);
 	pthread_mutex_unlock(&philo->data->print);
 }
 

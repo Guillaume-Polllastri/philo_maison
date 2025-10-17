@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:41:40 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/16 16:12:30 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:14:42 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				death;
 	pthread_mutex_t	death_lock;
+	long long		start_time;
 	t_data			*data;
 }					t_philo;
 
