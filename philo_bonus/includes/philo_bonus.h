@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:56:11 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 11:25:09 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/20 12:52:31 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ typedef struct s_data
 int	    *parse_args(char **av);
 int     ft_strlen(char *s);
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
-
+void	init_data(t_data *data, int *tab, int tab_len);
 
 #endif 

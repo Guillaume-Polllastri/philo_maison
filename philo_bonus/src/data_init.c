@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/25 10:39:45 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 14:29:38 by gpollast         ###   ########.fr       */
+/*   Created: 2025/10/20 12:50:59 by gpollast          #+#    #+#             */
+/*   Updated: 2025/10/20 12:51:41 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
-#include <stdio.h>
+#include "../includes/philo_bonus.h"
 #include <stdlib.h>
 #include <string.h>
-#include <sys/time.h>
-#include <unistd.h>
 
-int	main(int ac, char **av)
+void	init_data(t_data *data, int *tab, int tab_len)
 {
-	int		*tab;
-	t_data	data;
-
-	if (ac < 5 || ac > 6)
-	{
-		printf("Error\nUsage: ./philo nb_philos time_to_die time_to_eat"
-			" time_to_sleep [nb_meals]\n");
-		return (1);
-	}
-	tab = parse_args(av);
-	if (!tab)
-		return (1);
-	init_data(&data, tab, ac - 1);
-	if (!deploy_philos(&data))
-		return (1);
-	return (0);
+	memset(data, 0, sizeof(*data));
+	data->nb_philos = tab[0];
+	data->time_to_die = tab[1];
+	data->time_to_eat = tab[2];
+	data->time_to_sleep = tab[3];
+	if (tab_len == 5)
+		data->nb_meals = tab[4];
+	else
+		data->nb_meals = -1;
+	free(tab);
 }

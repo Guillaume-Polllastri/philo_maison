@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/17 15:55:23 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 12:58:38 by gpollast         ###   ########.fr       */
+/*   Created: 2025/10/20 12:59:53 by gpollast          #+#    #+#             */
+/*   Updated: 2025/10/20 14:10:03 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <semaphore.h>
 
-int main(int ac, char **av)
+void	init_semaphore(t_data *data)
 {
-    int		*tab;
-	t_data	data;
+	
+}
 
-	if (ac < 5 || ac > 6)
-	{
-		printf("Error\nUsage: ./philo nb_philos time_to_die time_to_eat"
-			" time_to_sleep [nb_meals]\n");
-		return (1);
-	}
-	tab = parse_args(av);
-	if (!tab)
-		return (1);
-	init_data(&data, tab, ac - 1);
-    return (0);
+int deploy_philos(t_data *data)
+{
+	
 }

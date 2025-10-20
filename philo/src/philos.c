@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:04:28 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/17 11:14:48 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/20 14:52:29 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ static int	init_philos(t_philo *philos, t_data *data, int *i)
 	philos[*i].id = *i + 1;
 	philos[*i].nb_meals = 0;
 	philos[*i].data = data;
+	if (pthread_mutex_init(&philos[*i].last_meal_time_lock, NULL))
+		return (0);
+	if (pthread_mutex_init(&philos[*i].death_lock, NULL))
+		return (0);
 	philos[*i].right_fork = create_fork();
 	if (*i > 0)
 		philos[*i].left_fork = philos[*i - 1].right_fork;
@@ -28,8 +32,6 @@ static int	init_philos(t_philo *philos, t_data *data, int *i)
 		philos[0].left_fork = philos[*i].right_fork;
 	if (!philos[*i].right_fork)
 		return (0);
-	pthread_mutex_init(&philos[*i].last_meal_time_lock, NULL);
-	pthread_mutex_init(&philos[*i].death_lock, NULL);
 	return (1);
 }
 
@@ -81,12 +83,12 @@ static void	*routine_philos(void *arg)
 	return (set_death_status(philo), NULL);
 }
 
-static int	wait_philos(t_data *data, t_philo *philos)
+static int	wait_philos(t_philo *philos, int index)
 {
 	int	i;
 
 	i = 0;
-	while (i < data->nb_philos)
+	while (i < index)
 	{
 		pthread_join(philos[i].thread, NULL);
 		i++;
@@ -108,11 +110,12 @@ int	deploy_philos(t_data *data)
 	{
 		philos[i].last_meal_time = get_timestamp();
 		philos[i].start_time = philos[i].last_meal_time;
-		pthread_create(&philos[i].thread, NULL, routine_philos, &philos[i]);
+		if (pthread_create(&philos[i].thread, NULL, routine_philos, &philos[i]))
+			return (wait_philos(philos, i), free_fork(philos), free(philos), 0);
 		i++;
 	}
 	pthread_create(&death_handler, NULL, routine_death_handler, philos);
-	wait_philos(data, philos);
+	wait_philos(philos, i);
 	pthread_join(death_handler, NULL);
 	free_fork(philos);
 	free(philos);
