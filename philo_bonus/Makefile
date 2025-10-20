@@ -6,13 +6,15 @@
 #    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/17 15:51:11 by gpollast          #+#    #+#              #
-#    Updated: 2025/10/17 15:51:55 by gpollast         ###   ########.fr        #
+#    Updated: 2025/10/20 11:24:48 by gpollast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_bonus
 
-SRC = 	src/main.c
+SRC = 	src/main.c \
+		src/parse.c \
+		src/utils.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/17 15:55:23 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 10:49:59 by gpollast         ###   ########.fr       */
+/*   Created: 2025/10/20 11:42:29 by gpollast          #+#    #+#             */
+/*   Updated: 2025/10/20 11:42:44 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_bonus.h"
-#include <stdio.h>
+#include "philo.h"
 
-int main(int ac, char **av)
+int ft_strlen(char *s)
 {
-    int		*tab;
-	// t_data	data;
+	int	i;
 
-	if (ac < 5 || ac > 6)
-	{
-		printf("Error\nUsage: ./philo nb_philos time_to_die time_to_eat"
-			" time_to_sleep [nb_meals]\n");
-		return (1);
-	}
-	tab = parse_args(av);
-	if (!tab)
-		return (1);
-    printf("tab[0] = %d\n", tab[0]);
-    return (0);
+	i = 0;
+    if (!s)
+    {
+        return (0);
+    }
+	while (s[i])
+		i++;
+	return (i);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] && s2[i] && i < (n - 1))
+		i++;
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }

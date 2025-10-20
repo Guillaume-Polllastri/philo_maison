@@ -6,7 +6,7 @@
 #    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/04 10:53:47 by gpollast          #+#    #+#              #
-#    Updated: 2025/10/15 11:14:37 by gpollast         ###   ########.fr        #
+#    Updated: 2025/10/20 11:43:42 by gpollast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRC = 	src/main.c \
 		src/atomic.c \
 		src/atomic_2.c \
 		src/the_reaper.c \
-		src/the_order.c
+		src/the_order.c \
+		src/utils2.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

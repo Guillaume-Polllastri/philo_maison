@@ -6,11 +6,11 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 13:57:23 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 11:41:57 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/20 11:39:06 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 #include <stdlib.h>
 #include <unistd.h>
 
