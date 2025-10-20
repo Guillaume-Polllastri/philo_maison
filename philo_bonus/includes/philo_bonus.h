@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:56:11 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 12:52:31 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/20 17:00:55 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 
 # include <pthread.h>
 # include <stdbool.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <semaphore.h>
 
 typedef struct s_data
 {
@@ -26,7 +29,16 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_meals;
+    sem_t           *forks;    
+    sem_t           *print;    
+    sem_t           *death;    
 }					t_data;
+
+typedef struct s_philo
+{
+	int				nb_meals;
+	long long		last_meal_time;
+}                   t_philo;
 
 int	    *parse_args(char **av);
 int     ft_strlen(char *s);
