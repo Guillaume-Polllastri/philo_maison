@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   semaphore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/17 15:55:23 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/28 17:00:40 by gpollast         ###   ########.fr       */
+/*   Created: 2025/10/20 20:48:21 by gpollast          #+#    #+#             */
+/*   Updated: 2025/10/20 20:51:36 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdio.h>
 
-int main(int ac, char **av)
+void	init_semaphore(t_data *data)
 {
-    int		*tab;
-	t_data	data;
+	data->forks = sem_open("/forks", O_CREAT, 0644, data->nb_philos);
+	data->print = sem_open("/print", O_CREAT, 0644, 1);
+}
 
-	if (ac < 5 || ac > 6)
-	{
-		printf("Error\nUsage: ./philo nb_philos time_to_die time_to_eat"
-			" time_to_sleep [nb_meals]\n");
-		return (1);
-	}
-	tab = parse_args(av);
-	if (!tab)
-		return (1);
-	if (!init_data(&data, tab, ac - 1))
-		return (1);
-	deploy_philos(&data);
-    return (0);
+void	close_semaphore(t_data *data)
+{
+	sem_close(data->forks);
+	sem_close(data->print);
 }

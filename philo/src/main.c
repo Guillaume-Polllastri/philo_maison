@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:39:45 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 14:29:38 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/28 17:00:26 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int ac, char **av)
 	tab = parse_args(av);
 	if (!tab)
 		return (1);
-	init_data(&data, tab, ac - 1);
+	if (!init_data(&data, tab, ac - 1))
+		return (1);
 	if (!deploy_philos(&data))
 		return (1);
 	return (0);

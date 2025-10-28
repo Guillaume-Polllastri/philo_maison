@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:50:59 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 12:51:41 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/28 17:00:52 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void	init_data(t_data *data, int *tab, int tab_len)
+int	init_data(t_data *data, int *tab, int tab_len)
 {
-	memset(data, 0, sizeof(*data));
+	if (!memset(data, 0, sizeof(*data)))
+		return (free(tab), 0);
 	data->nb_philos = tab[0];
 	data->time_to_die = tab[1];
 	data->time_to_eat = tab[2];
@@ -26,4 +27,5 @@ void	init_data(t_data *data, int *tab, int tab_len)
 	else
 		data->nb_meals = -1;
 	free(tab);
+	return (1);
 }

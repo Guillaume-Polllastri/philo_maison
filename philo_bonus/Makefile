@@ -6,7 +6,7 @@
 #    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/17 15:51:11 by gpollast          #+#    #+#              #
-#    Updated: 2025/10/20 13:00:08 by gpollast         ###   ########.fr        #
+#    Updated: 2025/10/28 18:03:59 by gpollast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,11 @@ SRC = 	src/main.c \
 		src/parse.c \
 		src/utils.c \
 		src/data_init.c \
-		src/philos.c
+		src/philos.c \
+		src/semaphore.c \
+		src/atomic.c \
+		src/the_order.c \
+		src/death.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

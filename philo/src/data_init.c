@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 14:51:42 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/16 13:45:51 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/28 16:59:56 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void	init_data(t_data *data, int *tab, int tab_len)
 {
-	memset(data, 0, sizeof(*data));
+	if (!memset(data, 0, sizeof(*data)))
+		return (free(tab), 1);
 	data->nb_philos = tab[0];
 	data->time_to_die = tab[1];
 	data->time_to_eat = tab[2];
