@@ -6,7 +6,7 @@
 #    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/04 10:53:47 by gpollast          #+#    #+#              #
-#    Updated: 2025/10/20 11:43:42 by gpollast         ###   ########.fr        #
+#    Updated: 2025/10/29 14:28:08 by gpollast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ CFLAGS = -Wall -Werror -Wextra -I./includes -g
 all: $(NAME)
 
 val:
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --track-fds=yes ./$(NAME) $(ARGS) || true
+	valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-leak-kinds=all ./$(NAME) $(ARGS) || true
 
 # Helgrind pour détecter les deadlocks
 helgrind:
@@ -41,7 +41,7 @@ helgrind:
 
 # Helgrind avec plus de détails sur les deadlocks
 helgrind-verbose:
-	valgrind --tool=helgrind --track-lockorders=yes --history-level=full --conflict-cache-size=1000000 --show-below-main=yes -v ./$(NAME) $(ARGS)
+	valgrind --tool=helgrind --fair-sched=yes --track-lockorders=yes --history-level=full --conflict-cache-size=1000000 --show-below-main=yes -v ./$(NAME) $(ARGS)
 
 # DRD alternative pour comparaison
 drd:

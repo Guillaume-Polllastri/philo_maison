@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 13:57:23 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/20 11:39:06 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:26:27 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	*parse_args(char **av)
 	while (av[i])
 	{
 		if (is_arg_numeric(av[i]))
-			return (write(2, "Error\nArguments must be only an int\n", 36), NULL);
+			return (write(2, "Error\nArguments must be an int\n", 36), NULL);
 		if (check_int_value(av[i]) < 0)
-			return (write(2, "Error\nArguments must be only an int\n", 36), NULL);
+			return (write(2, "Error\nArguments must be an int\n", 36), NULL);
 		i++;
 	}
 	tab = malloc(sizeof(*tab) * (i - 1));
@@ -90,7 +90,7 @@ int	*parse_args(char **av)
 		if (tab[i] == 0)
 		{
 			write(2, "Error\nArguments must be a positive non-nul value\n", 49);
-			return (free(tab), NULL);			
+			return (free(tab), NULL);
 		}
 		i++;
 	}

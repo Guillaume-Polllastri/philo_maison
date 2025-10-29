@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 14:51:42 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/28 16:59:56 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/29 10:43:27 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void	init_data(t_data *data, int *tab, int tab_len)
+int	init_data(t_data *data, int *tab, int tab_len)
 {
 	if (!memset(data, 0, sizeof(*data)))
 		return (free(tab), 1);
@@ -29,4 +29,5 @@ void	init_data(t_data *data, int *tab, int tab_len)
 	pthread_mutex_init(&data->stop_flag_lock, NULL);
 	pthread_mutex_init(&data->print, NULL);
 	free(tab);
+	return (1);
 }

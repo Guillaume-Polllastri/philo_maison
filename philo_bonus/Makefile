@@ -6,7 +6,7 @@
 #    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/17 15:51:11 by gpollast          #+#    #+#              #
-#    Updated: 2025/10/28 18:03:59 by gpollast         ###   ########.fr        #
+#    Updated: 2025/10/29 13:46:31 by gpollast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = 	src/main.c \
 		src/semaphore.c \
 		src/atomic.c \
 		src/the_order.c \
-		src/death.c
+		src/death.c \
+		src/children.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
@@ -31,7 +32,7 @@ CFLAGS = -Wall -Werror -Wextra -I./includes -g
 all: $(NAME)
 
 val:
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --track-fds=yes ./$(NAME) $(ARGS) || true
+	valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-leak-kinds=all ./$(NAME) $(ARGS) || true
 
 # Helgrind pour détecter les deadlocks
 helgrind:

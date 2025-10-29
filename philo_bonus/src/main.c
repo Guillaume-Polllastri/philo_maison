@@ -6,16 +6,16 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:55:23 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/28 17:00:40 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:12:15 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 #include <stdio.h>
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    int		*tab;
+	int		*tab;
 	t_data	data;
 
 	if (ac < 5 || ac > 6)
@@ -30,5 +30,5 @@ int main(int ac, char **av)
 	if (!init_data(&data, tab, ac - 1))
 		return (1);
 	deploy_philos(&data);
-    return (0);
+	return (0);
 }
