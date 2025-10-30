@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:59:53 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/29 15:44:51 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:31:22 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	routine_philos(t_philo *philo, t_data *data)
 	}
 }
 
-static int	wait_philos(t_philo *philos, int index)
+static int	wait_thread_parent(t_philo *philos, int index)
 {
 	int	i;
 
@@ -120,10 +120,14 @@ int	deploy_philos(t_data *data)
 	i = 0;
 	while (i < data->nb_philos)
 	{
-		pthread_create(&philos[i].reaper, NULL, death_handler, &philos[i]);
+		if (pthread_create(&philos[i].reaper, NULL, death_handler, &philos[i]))
+		{
+			kill_everyone(philos, i);
+			break ;
+		}
 		i++;
 	}
-	wait_philos(philos, i);
+	wait_thread_parent(philos, i);
 	wait_children(philos, data);
 	free(philos);
 	close_semaphore(data);

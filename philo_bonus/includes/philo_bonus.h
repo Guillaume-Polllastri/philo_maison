@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:56:11 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/29 13:58:41 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:48:19 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,38 @@ typedef struct s_philo
 	pthread_t	reaper;
 }				t_philo;
 
-int				*parse_args(char **av);
-int				ft_strlen(char *s);
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
+// atomic.c
+void			print_philo_status(t_philo *philo, t_data *data, char *s);
+
+// children.c
+int				spawn_children(t_philo *philo, t_data *data);
+void			wait_children(t_philo *philo, t_data *data);
+
+// data_init.c
 int				init_data(t_data *data, int *tab, int tab_len);
-long long		get_timestamp(void);
+
+// death.c
+void			*death_handler(void *arg);
+void			kill_everyone(t_philo *philo, int index);
+
+// parse.c
+int				*parse_args(char **av);
+
+// philo.c
+void			routine_philos(t_philo *philo, t_data *data);
 int				deploy_philos(t_data *data);
+
+// semaphore.c
+void			init_semaphore(t_data *data);
+void			close_semaphore(t_data *data);
+
+// the_order.c
 int				get_order(int id, int nb_philos);
 long long		get_time_to_think(t_philo *philo, t_data *data,
 					bool is_starting);
-void			print_philo_status(t_philo *philo, t_data *data, char *s);
-void			*death_handler(void *arg);
-void			init_semaphore(t_data *data);
-void			close_semaphore(t_data *data);
-int				spawn_children(t_philo *philo, t_data *data);
-void			wait_children(t_philo *philo, t_data *data);
-void			routine_philos(t_philo *philo, t_data *data);
+// utils.c
+long long		get_timestamp(void);
+int				ft_strlen(char *s);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

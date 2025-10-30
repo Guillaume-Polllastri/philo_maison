@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 18:02:48 by gpollast          #+#    #+#             */
-/*   Updated: 2025/10/29 14:49:43 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:29:04 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ void	*death_handler(void *arg)
 		}
 	}
 	return (NULL);
+}
+
+void	kill_everyone(t_philo *philo, int index)
+{
+	int	i;
+
+	i = 0;
+	while (i < index)
+	{
+		kill(philo[i].pid, SIGTERM);
+		i++;
+	}
 }
